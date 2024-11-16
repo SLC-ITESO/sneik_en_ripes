@@ -34,7 +34,7 @@ struct snake {
     unsigned short xx;
     unsigned short y;
     unsigned short yy;
-    int dir;
+    unsigned short dir;
 
     struct snake *next;
 
@@ -115,7 +115,7 @@ void spawn_snake(){
     tail = new;
     
     spawn_snake_part(new->x,new->y,new->xx,new->yy);
-    spawn_snake_part(new->x+2,new->y,new->xx+2,new->yy);
+    //spawn_snake_part(new->x+2,new->y,new->xx+2,new->yy);
     return;
 }
 
@@ -157,6 +157,52 @@ void spawn_snake_part(unsigned short x, unsigned short y, unsigned short xx, uns
     return;
 }
 
+void move_snake(){
+    unsigned short mov_x = head -> x;
+    unsigned short mov_y = head -> y;
+    unsigned short mov_xx = head -> xx;
+    unsigned short mov_yy = head -> yy;
+    unsigned short mov_dir = head -> dir;
+    
+    // 1 = arriba, 2 = abajo, 3 = izq, 4 = derecha
+    switch(head->dir) {
+        case 1:
+            head->y++;
+            break;
+        case 2:
+            head->y--;
+            break;
+        case 3:
+            head->x--;
+            break;
+        case 4:
+            head->x++;
+            break;
+    }
+    
+    Snake *temp = head;
+    if(temp ->next != NULL) {
+        temp  = temp -> next;
+    }
+     while(temp  != NULL) {
+        
+        int new_x = temp ->x;
+        int new_y = temp ->y;
+        int new_dir = temp ->dir;
+
+        temp -> x = mov_x;
+        temp -> y = mov_y;
+        temp -> dir = mov_dir;
+
+        temp = temp -> next;
+
+        mov_x = new_x;
+        mov_y = new_y;
+        mov_dir = new_dir;
+
+    }
+    return;
+}
 
 void spawn_square(unsigned int x, unsigned int y, unsigned int color){
     set_pixel(x, y, color);
