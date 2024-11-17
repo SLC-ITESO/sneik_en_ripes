@@ -20,8 +20,8 @@ volatile unsigned int *d_pad_l = D_PAD_0_LEFT;
 volatile unsigned int *d_pad_r = D_PAD_0_RIGHT;
 
 // cosos del tablero
-unsigned short max_x = LED_MATRIX_0_WIDTH - 1;
-unsigned short max_y = LED_MATRIX_0_HEIGHT - 1;
+unsigned short max_x = LED_MATRIX_0_WIDTH - 2;
+unsigned short max_y = LED_MATRIX_0_HEIGHT - 2;
 
 //cosos del manzano
 unsigned int ax = 0;
