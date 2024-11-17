@@ -141,7 +141,7 @@ void move_snake() {
             head->xx++;
             break;
     }
-    //Dinuja la nueva cabeza
+    //Dibuja la nueva cabeza
     spawn_snake_part(head->x, head->y, head->xx, head->yy, ro);
 }
 
