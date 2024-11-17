@@ -29,7 +29,7 @@ unsigned int ay = 0;
 unsigned int axx = 0;
 unsigned int ayy = 0;
 // Culebra
-#define MAX_SNAKE_PARTS 20
+#define MAX_SNAKE_PARTS 100
 
 typedef struct {
     unsigned short x, xx;
@@ -38,7 +38,7 @@ typedef struct {
 } SnakePart;
 
 SnakePart snake[MAX_SNAKE_PARTS];
-int snake_size = 1; // tamaño de la serpiente
+int snake_size = 2; // tamaño de la serpiente
 
 // colores:
 unsigned int ro = 0x00ff0000;
@@ -81,14 +81,14 @@ void spawn_snake() {
         SnakePart *head = &snake[0];
         snake[0].x = rand() % (max_x - 8);
         snake[0].y = rand() % (max_y - 4);
-        snake[0].xx = snake[0].x + 1;
-        snake[0].yy = snake[0].y + 1;
+        snake[0].xx = snake[0].x - 1;
+        snake[0].yy = snake[0].y - 1;
         snake[0].dir = 4; // Comienza moviendose a la derecha
-        snake_size = 1;
+        snake_size = 2;
     }
 }
 void crece_snake(){
-    snake_size++;
+    snake_size+=2;
     return;
 }
 void come_apple(){
