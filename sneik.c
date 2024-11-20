@@ -20,8 +20,8 @@ volatile unsigned int *d_pad_l = D_PAD_0_LEFT;
 volatile unsigned int *d_pad_r = D_PAD_0_RIGHT;
 
 // cosos del tablero
-unsigned short max_x = LED_MATRIX_0_WIDTH - 2;
-unsigned short max_y = LED_MATRIX_0_HEIGHT - 2;
+unsigned short max_x = LED_MATRIX_0_WIDTH - 1;
+unsigned short max_y = LED_MATRIX_0_HEIGHT - 1;
 
 //cosos del manzano
 unsigned int ax = 0;
@@ -38,7 +38,7 @@ typedef struct {
 } SnakePart;
 
 SnakePart snake[MAX_SNAKE_PARTS];
-int snake_size = 2; // tamaño de la serpiente
+int snake_size = 2; // tama?o de la serpiente
 
 // colores:
 unsigned int ro = 0x00ff0000;
@@ -79,18 +79,20 @@ void main() {
 void spawn_snake() {
     if (snake_size < MAX_SNAKE_PARTS) {
         SnakePart *head = &snake[0];
-        snake[0].x = rand() % (max_x - 8);
-        snake[0].y = rand() % (max_y - 4);
+        snake[0].x = rand() % (max_x);
+        snake[0].y = rand() % (max_y);
         snake[0].xx = snake[0].x - 1;
         snake[0].yy = snake[0].y - 1;
         snake[0].dir = 4; // Comienza moviendose a la derecha
         snake_size = 2;
     }
 }
+
 void crece_snake(){
     snake_size+=2;
     return;
 }
+
 void come_apple(){
 if ((snake[0].x == ax && snake[0].y == ay) ||
     (snake[0].x == axx && snake[0].y == ay) ||
@@ -157,8 +159,8 @@ void despawn_apple(){
     set_pixel(axx, ayy, 0);
 }
 void spawn_apple(unsigned int color_m) {
-    ax = rand() % (max_x + 1);
-    ay = rand() % (max_y + 1);
+    ax = rand() % (max_x - 1);
+    ay = rand() % (max_y - 1);
     axx = ax - 1;
     ayy = ay -1;
     
@@ -179,11 +181,11 @@ void set_pixel(unsigned int x, unsigned int y, unsigned int color) {
     if (x > max_x || y > max_y) return;
 
     unsigned int *led_base = LED_MATRIX_0_BASE;
-    unsigned int offset = x + (24 - y) * LED_MATRIX_0_WIDTH;
+    unsigned int offset = x + (max_y - y) * LED_MATRIX_0_WIDTH;
     unsigned int *address = led_base + offset;
     *address = color;
 }
 
 void delay() {
-    for (volatile int i = 0; i < 1100; i++) {}
+    for (volatile int i = 0; i < 500; i++) {}
 }
